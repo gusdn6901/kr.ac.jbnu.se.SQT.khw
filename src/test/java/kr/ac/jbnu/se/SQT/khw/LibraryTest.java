@@ -64,6 +64,13 @@ public class LibraryTest {
     }
     
     @Test
+    public void testBorrowBookFromEmptyList() {
+        Library library = new Library();
+        BookIF mockedBook = mock(BookIF.class);
+        assertFalse(library.borrowBook(mockedBook));
+    }
+    
+    @Test
     public void testBorrowAlreadyBorrowedBook() {
         Library library = new Library();
         BookIF mockedBook = mock(BookIF.class);
@@ -81,6 +88,13 @@ public class LibraryTest {
         when(mockedBook.isBorrowed()).thenReturn(true);
         library.addBook(mockedBook);
         assertTrue(library.returnBook(mockedBook));
+    }
+    
+    @Test
+    public void testReturnBookFromEmptyList() {
+        Library library = new Library();
+        BookIF mockedBook = mock(BookIF.class);
+        assertFalse(library.returnBook(mockedBook));
     }
     
     @Test
