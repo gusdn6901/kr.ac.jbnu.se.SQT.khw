@@ -12,120 +12,105 @@ public class LibraryTest {
     @Test
     public void testAddBook() {
         Library library = new Library();
-        BookIF mockedBook = mock(BookIF.class);
-        when(mockedBook.getName()).thenReturn("BookExample");
-        assertTrue(library.addBook(mockedBook));
+        BookIF book = new ComicBook("BookExample");
+        assertTrue(library.addBook(book));
     }
     
     @Test
     public void testAddAlreadyExistBook() {
         Library library = new Library();
-        BookIF mockedBook = mock(BookIF.class);
-        when(mockedBook.getName()).thenReturn("BookExample");
-        library.addBook(mockedBook);
-        assertFalse(library.addBook(mockedBook));
+        BookIF book = new ComicBook("BookExample");
+        library.addBook(book);
+        assertFalse(library.addBook(book));
     }
     
     @Test
     public void testRemoveBook() {
         Library library = new Library();
-        BookIF mockedBook = mock(BookIF.class);
-        when(mockedBook.getName()).thenReturn("BookExample");
-        library.addBook(mockedBook);
-        assertTrue(library.removeBook(mockedBook));
+        BookIF book = new ComicBook("BookExample");
+        library.addBook(book);
+        assertTrue(library.removeBook(book));
     }
     
     @Test
     public void testRemoveNoneExistBook() {
         Library library = new Library();
-        BookIF mockedBook = mock(BookIF.class);
-        when(mockedBook.getName()).thenReturn("BookExample");
-        BookIF mockedBook2 = mock(BookIF.class);
-        when(mockedBook2.getName()).thenReturn("BookExample2");
-        library.addBook(mockedBook);
-        assertFalse(library.removeBook(mockedBook2));
+        BookIF book1 = new ComicBook("BookExample1");
+        BookIF book2 = new ComicBook("BookExample2");
+        library.addBook(book1);
+        assertFalse(library.removeBook(book2));
     }
     
     @Test
     public void testRemoveBookFromEmptyList() {
         Library library = new Library();
-        BookIF mockedBook = mock(BookIF.class);
-        assertFalse(library.removeBook(mockedBook));
+        BookIF book = new ComicBook("BookExample");
+        assertFalse(library.removeBook(book));
     }
     
     @Test
     public void testBorrowBook() {
         Library library = new Library();
-        BookIF mockedBook = mock(BookIF.class);
-        when(mockedBook.getName()).thenReturn("BookExample");
-        when(mockedBook.isBorrowed()).thenReturn(false);
-        library.addBook(mockedBook);
-        assertTrue(library.borrowBook(mockedBook));
+        BookIF book = new ComicBook("BookExample");
+        library.addBook(book);
+        assertTrue(library.borrowBook(book));
     }
     
     @Test
     public void testBorrowBookFromEmptyList() {
         Library library = new Library();
-        BookIF mockedBook = mock(BookIF.class);
-        assertFalse(library.borrowBook(mockedBook));
+        BookIF book = new ComicBook("BookExample");
+        assertFalse(library.borrowBook(book));
     }
     
     @Test
     public void testBorrowNoneExistBook() {
         Library library = new Library();
-        BookIF mockedBook = mock(BookIF.class);
-        when(mockedBook.getName()).thenReturn("BookExample");
-        BookIF mockedBook2 = mock(BookIF.class);
-        when(mockedBook.getName()).thenReturn("BookExample2");
-        library.addBook(mockedBook);
-        assertFalse(library.borrowBook(mockedBook2));
+        BookIF book1 = new ComicBook("BookExample1");
+        BookIF book2 = new ComicBook("BookExample2");
+        library.addBook(book1);
+        assertFalse(library.borrowBook(book2));
     }
     
     @Test
     public void testBorrowAlreadyBorrowedBook() {
-        Library library = new Library();
-        BookIF mockedBook = mock(BookIF.class);
-        when(mockedBook.getName()).thenReturn("BookExample");
-        when(mockedBook.isBorrowed()).thenReturn(true);
-        library.addBook(mockedBook);
-        assertFalse(library.borrowBook(mockedBook));
+    	Library library = new Library();
+        BookIF book = new ComicBook("BookExample");
+        library.addBook(book);
+        book.setBorrowed(true);
+        assertFalse(library.borrowBook(book));
     }
     
     @Test
     public void testReturnBook() {
         Library library = new Library();
-        BookIF mockedBook = mock(BookIF.class);
-        when(mockedBook.getName()).thenReturn("BookExample");
-        when(mockedBook.isBorrowed()).thenReturn(true);
-        library.addBook(mockedBook);
-        assertTrue(library.returnBook(mockedBook));
+        BookIF book = new ComicBook("BookExample");
+        library.addBook(book);
+        book.setBorrowed(true);
+        assertTrue(library.returnBook(book));
     }
     
     @Test
     public void testReturnBookFromEmptyList() {
         Library library = new Library();
-        BookIF mockedBook = mock(BookIF.class);
-        assertFalse(library.returnBook(mockedBook));
+        BookIF book = new ComicBook("BookExample");
+        assertFalse(library.returnBook(book));
     }
     
     @Test
     public void testReturnNoneExistBook() {
         Library library = new Library();
-        BookIF mockedBook = mock(BookIF.class);
-        when(mockedBook.getName()).thenReturn("BookExample");
-        BookIF mockedBook2 = mock(BookIF.class);
-        when(mockedBook.getName()).thenReturn("BookExample2");
-        library.addBook(mockedBook);
-        assertFalse(library.returnBook(mockedBook2));
+        BookIF book1 = new ComicBook("BookExample1");
+        BookIF book2 = new ComicBook("BookExample2");
+        library.addBook(book1);
+        assertFalse(library.returnBook(book2));
     }
     
     @Test
     public void testReturnAlreadyReturnedBook() {
         Library library = new Library();
-        BookIF mockedBook = mock(BookIF.class);
-        when(mockedBook.getName()).thenReturn("BookExample");
-        when(mockedBook.isBorrowed()).thenReturn(false);
-        library.addBook(mockedBook);
-        assertFalse(library.returnBook(mockedBook));
+        BookIF book = new ComicBook("BookExample");
+        library.addBook(book);
+        assertFalse(library.returnBook(book));
     }
 }
