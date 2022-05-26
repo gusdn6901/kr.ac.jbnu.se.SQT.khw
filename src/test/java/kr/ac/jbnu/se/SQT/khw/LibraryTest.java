@@ -71,6 +71,17 @@ public class LibraryTest {
     }
     
     @Test
+    public void testBorrowNoneExistBook() {
+        Library library = new Library();
+        BookIF mockedBook = mock(BookIF.class);
+        when(mockedBook.getName()).thenReturn("BookExample");
+        BookIF mockedBook2 = mock(BookIF.class);
+        when(mockedBook.getName()).thenReturn("BookExample2");
+        library.addBook(mockedBook);
+        assertFalse(library.borrowBook(mockedBook2));
+    }
+    
+    @Test
     public void testBorrowAlreadyBorrowedBook() {
         Library library = new Library();
         BookIF mockedBook = mock(BookIF.class);
@@ -95,6 +106,17 @@ public class LibraryTest {
         Library library = new Library();
         BookIF mockedBook = mock(BookIF.class);
         assertFalse(library.returnBook(mockedBook));
+    }
+    
+    @Test
+    public void testReturnNoneExistBook() {
+        Library library = new Library();
+        BookIF mockedBook = mock(BookIF.class);
+        when(mockedBook.getName()).thenReturn("BookExample");
+        BookIF mockedBook2 = mock(BookIF.class);
+        when(mockedBook.getName()).thenReturn("BookExample2");
+        library.addBook(mockedBook);
+        assertFalse(library.returnBook(mockedBook2));
     }
     
     @Test
