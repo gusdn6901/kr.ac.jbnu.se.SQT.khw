@@ -3,8 +3,85 @@
  */
 package kr.ac.jbnu.se.SQT.khw;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 public class Library {
-    public boolean someLibraryMethod() {
-        return true;
+    private List<BookIF> books;
+    
+    public Library() {
+    	books = new ArrayList<BookIF>();
+    }
+    
+    public boolean addBook(BookIF book) {
+    	Iterator<BookIF> iter = books.iterator();
+    	while(iter.hasNext()) {
+    		BookIF existBook = iter.next();
+    		if(existBook.getName() == book.getName()) return false;
+    	}
+    	books.add(book);
+    	
+    	return true;
+    }
+    
+    public boolean removeBook(BookIF book) {
+    	if(books.isEmpty()) return false;
+    	Iterator<BookIF> iter = books.iterator();
+    	BookIF target = null;
+    	while(iter.hasNext()) {
+    		BookIF existBook = iter.next();
+    		if(existBook.getName() == book.getName()) {
+    			target = existBook;
+    			break;
+    		}
+    	}
+    	if(target == null) return false;
+    	else {
+    		books.remove(target);
+    		return true;
+    	}
+    }
+    
+    public boolean borrowBook(BookIF book) {
+    	if(books.isEmpty()) return false;
+    	Iterator<BookIF> iter = books.iterator();
+    	BookIF target = null;
+    	while(iter.hasNext()) {
+    		BookIF existBook = iter.next();
+    		if(existBook.getName() == book.getName()) {
+    			target = existBook;
+    			break;
+    		}
+    	}
+    	if(target == null) return false;
+    	else {
+    		if(target.isBorrowed()) return false;
+    		else {
+    			target.setBorrowed(true);
+    			return true;
+    		}
+    	}
+    }
+    
+    public boolean returnBook(BookIF book) {
+    	if(books.isEmpty()) return false;
+    	Iterator<BookIF> iter = books.iterator();
+    	BookIF target = null;
+    	while(iter.hasNext()) {
+    		BookIF existBook = iter.next();
+    		if(existBook.getName() == book.getName()) {
+    			target = existBook;
+    			break;
+    		}
+    	}
+    	if(target == null) return false;
+    	else {
+    		if(!target.isBorrowed()) return false;
+    		else {
+    			target.setBorrowed(false);
+    			return true;
+    		}
+    	}
     }
 }
