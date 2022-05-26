@@ -5,10 +5,91 @@ package kr.ac.jbnu.se.SQT.khw;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class LibraryTest {
-    @Test public void testSomeLibraryMethod() {
-        Library classUnderTest = new Library();
-        assertTrue("someLibraryMethod should return 'true'", classUnderTest.someLibraryMethod());
+    @Test
+    public void testAddBook() {
+        Library library = new Library();
+        BookIF mockedBook = mock(BookIF.class);
+        when(mockedBook.getName()).thenReturn("BookExample");
+        assertTrue(library.addBook(mockedBook));
+    }
+    
+    @Test
+    public void testAddAlreadyExistBook() {
+        Library library = new Library();
+        BookIF mockedBook = mock(BookIF.class);
+        when(mockedBook.getName()).thenReturn("BookExample");
+        library.addBook(mockedBook);
+        assertFalse(library.addBook(mockedBook));
+    }
+    
+    @Test
+    public void testRemoveBook() {
+        Library library = new Library();
+        BookIF mockedBook = mock(BookIF.class);
+        when(mockedBook.getName()).thenReturn("BookExample");
+        library.addBook(mockedBook);
+        assertTrue(library.removeBook(mockedBook));
+    }
+    
+    @Test
+    public void testRemoveNoneExistBook() {
+        Library library = new Library();
+        BookIF mockedBook = mock(BookIF.class);
+        when(mockedBook.getName()).thenReturn("BookExample");
+        BookIF mockedBook2 = mock(BookIF.class);
+        when(mockedBook2.getName()).thenReturn("BookExample2");
+        library.addBook(mockedBook);
+        assertFalse(library.removeBook(mockedBook2));
+    }
+    
+    @Test
+    public void testRemoveBookFromEmptyList() {
+        Library library = new Library();
+        BookIF mockedBook = mock(BookIF.class);
+        assertFalse(library.removeBook(mockedBook));
+    }
+    
+    @Test
+    public void testBorrowBook() {
+        Library library = new Library();
+        BookIF mockedBook = mock(BookIF.class);
+        when(mockedBook.getName()).thenReturn("BookExample");
+        when(mockedBook.isBorrowed()).thenReturn(false);
+        library.addBook(mockedBook);
+        assertTrue(library.borrowBook(mockedBook));
+    }
+    
+    @Test
+    public void testBorrowAlreadyBorrowedBook() {
+        Library library = new Library();
+        BookIF mockedBook = mock(BookIF.class);
+        when(mockedBook.getName()).thenReturn("BookExample");
+        when(mockedBook.isBorrowed()).thenReturn(true);
+        library.addBook(mockedBook);
+        assertFalse(library.borrowBook(mockedBook));
+    }
+    
+    @Test
+    public void testReturnBook() {
+        Library library = new Library();
+        BookIF mockedBook = mock(BookIF.class);
+        when(mockedBook.getName()).thenReturn("BookExample");
+        when(mockedBook.isBorrowed()).thenReturn(true);
+        library.addBook(mockedBook);
+        assertTrue(library.returnBook(mockedBook));
+    }
+    
+    @Test
+    public void testReturnAlreadyReturnedBook() {
+        Library library = new Library();
+        BookIF mockedBook = mock(BookIF.class);
+        when(mockedBook.getName()).thenReturn("BookExample");
+        when(mockedBook.isBorrowed()).thenReturn(false);
+        library.addBook(mockedBook);
+        assertFalse(library.returnBook(mockedBook));
     }
 }
